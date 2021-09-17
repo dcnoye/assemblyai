@@ -24,9 +24,21 @@ def api_save(wh_id, wh_status, wh_ip):
 
 def api_update(job, connection, result, *args, **kwargs):
     """update database upon success"""
-    pass
+    print("testing api_update")
+    post = Post.query.filter_by(Post.id == job).first()
+    if post:
+        post.status = 'success'
+        db.session.commit()
+    else:
+        pass
 
 
 def api_failure(job, connection, type, value, traceback):
     """update database upon failure"""
-    pass
+    print("entering api_failure")
+    post = Post.query.filter_by(Post.id == job).first()
+    if post:
+        post.status = 'failed'
+        db.session.commit()
+    else:
+        pass
