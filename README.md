@@ -38,8 +38,12 @@ We assume that you have redis setup
 
 ### Starting the server via docker-compose:
 ```
-    docker-compose build
-    docker-compose up -d 
+    docker-compose up -d --build
+```
+
+### Stopping the server via docker-compose:
+```
+    docker-compose -f docker-compose.yml down -v    
 ```
 
 ### API Endpoints
@@ -63,14 +67,16 @@ New item to webhook
 ***Examples & testing:***
 ```bash
 
-curl -X GET https://AssemblyAI.noye.org/api/v1/hooks/52d0cae3-45c5-439f-ab81-2205f52a821c
+curl -X GET http://localhost:5000/api/v1/hooks
 
-curl -X GET https://AssemblyAI.noye.org/api/v1/hooks
+curl -X GET http://localhost:5000/api/v1/hooks/52d0cae3-45c5-439f-ab81-2205f52a821c
+
 
 curl -X POST \
   -H 'X:process' -H 'content-type:application/json' \
   -d '{"url":"https://rest.coinapi.io/v1/assets","headers":{"X-CoinAPI-Key": "65AC7BFD-177F-49E6-9BD6-0E93C098782B"}}'  http://localhost:5000/api/v1/hooks
 ```
 
-
-
+### TODO
+   * Use Celery instead of RQ
+   * login to see live queue
